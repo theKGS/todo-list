@@ -3,10 +3,10 @@ body {
 }
 
 .item {
-    border: 2px solid lightblue;
+    border: 2px solid rgb(150, 150, 150);
     border-radius: 15px;
     width: 600px;
-    background-color: gray;
+    background-color: rgb(158, 180, 200);
 }
 
 .list {
