@@ -1,0 +1,25 @@
+body {
+    background-color: black;
+}
+
+.item {
+    border: 2px solid lightblue;
+    border-radius: 15px;
+    width: 600px;
+    background-color: gray;
+}
+
+.list {
+    list-style: none;
+    margin: 0px;
+}
+
+.item-name {
+    font-weight: bold;
+    margin-left: 15px;
+}
+
+.item-description {
+    font-style: italic;
+    margin-left: 15px;
+}
