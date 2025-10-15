@@ -14,11 +14,16 @@ function projectToElement(project) {
         const description = document.createElement("div");
         description.classList.add('item-description');
         description.textContent = project.description;
+        const date = document.createElement("div");
+        date.classList.add('item-date');
+        date.textContent = project.date;
+
         const list = document.createElement("ul");
         list.classList.add('list');
 
         base.appendChild(label);
         base.appendChild(description);
+        base.appendChild(date);
         base.appendChild(list);
 
         for (const e of project.children) {

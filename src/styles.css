@@ -16,10 +16,16 @@ body {
 
 .item-name {
     font-weight: bold;
+    margin-top: 5px;
     margin-left: 15px;
 }
 
 .item-description {
     font-style: italic;
+    margin-left: 15px;
+}
+
+.item-date {
+    margin-top: 5px;
     margin-left: 15px;
 }
