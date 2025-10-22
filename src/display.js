@@ -16,6 +16,18 @@ function makeLabel(name, minimized, minEvent, maxEvent) {
     label.textContent = name;
     labelRegion.appendChild(label);
 
+    if (!minimized) {
+        const minButton = document.createElement("img");
+        minButton.classList.add('item-minimize');
+        minButton.addEventListener('click', minEvent);
+        labelRegion.appendChild(minButton);
+    } else {
+        const maxButton = document.createElement("img");
+        maxButton.classList.add('item-maximize');
+        maxButton.addEventListener('click', maxEvent);
+        labelRegion.appendChild(maxButton);
+    }
+
     return labelRegion;
 }
 

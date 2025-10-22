@@ -23,6 +23,21 @@ body {
 .item-label-region {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+}
+
+.item-minimize {
+    background-image: url('/src/icons/window-minimize.svg');
+    width: 20px;
+    height: 20px;
+    margin-right: 15px;    
+}
+
+.item-maximize {
+    background-image: url('/src/icons/window-maximize.svg');
+    width: 20px;
+    height: 20px;
+    margin-right: 15px;
 }
 
 .item-description {
