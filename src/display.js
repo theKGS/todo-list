@@ -9,14 +9,24 @@ function render(projectList) {
     base.replaceChildren(renderProjects(listOfProjects));
 }
 
+function makeLabel(name, minimized, minEvent, maxEvent) {
+    const labelRegion = document.createElement("div");
+    labelRegion.classList.add('item-label-region');
+    const label = document.createElement("div");
+    label.textContent = name;
+    labelRegion.appendChild(label);
+
+    return labelRegion;
+}
+
 function projectToElement(project) {
     const minimizeEvent = () => {
-        project.minimized = project.minimized ? false : true;
+        project.minimized = true;
         render(listOfProjects);
     }
 
     const maximizeEvent = () => {
-        project.minimized = project.minimized ? false : true;
+        project.minimized = false;
         render(listOfProjects);
     }
 
@@ -24,18 +34,12 @@ function projectToElement(project) {
     base.classList.add('item');
     if (project.minimized === true) {
         // Render it minimized
-        const label = document.createElement("div");
-        label.classList.add('item-name');
-        label.textContent = project.name;
-        label.addEventListener('click', maximizeEvent);
+        const label = makeLabel(project.name, project.minimized, minimizeEvent, maximizeEvent);
         base.appendChild(label);
         return base;
     } else {
         // Render it normally
-        const label = document.createElement("div");
-        label.classList.add('item-name');
-        label.textContent = project.name;
-        label.addEventListener('click', minimizeEvent);
+        const label = makeLabel(project.name, project.minimized, minimizeEvent, maximizeEvent);
         const description = document.createElement("div");
         description.classList.add('item-description');
         description.textContent = project.description;

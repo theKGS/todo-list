@@ -20,6 +20,11 @@ body {
     margin-left: 15px;
 }
 
+.item-label-region {
+    display: flex;
+    flex-direction: row;
+}
+
 .item-description {
     font-style: italic;
     margin-left: 15px;
