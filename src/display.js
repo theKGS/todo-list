@@ -14,6 +14,7 @@ function makeLabel(name, minimized, minEvent, maxEvent) {
     labelRegion.classList.add('item-label-region');
     const label = document.createElement("div");
     label.textContent = name;
+    label.classList.add('item-name')
     labelRegion.appendChild(label);
 
     if (!minimized) {

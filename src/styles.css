@@ -1,12 +1,13 @@
 body {
     background-color: black;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .item {
-    border: 2px solid rgb(185, 185, 185);
+    border: 2px solid rgb(228, 228, 228);
     border-radius: 15px;
     width: 600px;
-    background-color: rgb(215, 236, 255);
+    background-color: rgb(242, 249, 255);
 }
 
 .list {
@@ -24,13 +25,14 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
 }
 
 .item-minimize {
     background-image: url('/src/icons/window-minimize.svg');
     width: 20px;
     height: 20px;
-    margin-right: 15px;    
+    margin-right: 15px;
 }
 
 .item-maximize {
@@ -43,9 +45,12 @@ body {
 .item-description {
     font-style: italic;
     margin-left: 15px;
+    margin-top: 10px;
 }
 
 .item-date {
-    margin-top: 5px;
+    margin-top: 10px;
     margin-left: 15px;
+    margin-bottom: 10px;
+    color: rgb(140, 140, 140);
 }
