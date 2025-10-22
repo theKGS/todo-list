@@ -1,16 +1,41 @@
+let listOfProjects = null;
+
+function render(projectList) {
+    if (listOfProjects === null) {
+        listOfProjects = projectList;
+    }
+
+    const base = document.querySelector("#container");
+    base.replaceChildren(renderProjects(listOfProjects));
+}
+
 function projectToElement(project) {
+    const minimizeEvent = (e) => {
+        project.minimized = project.minimized ? false : true;
+        console.log(project.minimized);
+        render(listOfProjects);
+    }
+
+    const maximizeEvent = (e) => {
+        project.minimized = project.minimized ? false : true;
+        console.log(project.minimized);
+        render(listOfProjects);
+    }
+
     const base = document.createElement("div");
     base.classList.add('item');
     if (project.minimized === true) {
         const label = document.createElement("div");
         label.classList.add('item-name');
         label.textContent = project.name;
+        label.addEventListener('click', maximizeEvent);
         base.appendChild(label);
         return base;
     } else {
         const label = document.createElement("div");
         label.classList.add('item-name');
         label.textContent = project.name;
+        label.addEventListener('click', minimizeEvent);
         const description = document.createElement("div");
         description.classList.add('item-description');
         description.textContent = project.description;
@@ -46,4 +71,4 @@ function renderProjects(list) {
     return base;
 }
 
-export { renderProjects };
+export { render };

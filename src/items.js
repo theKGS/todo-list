@@ -4,6 +4,7 @@ class todo {
     date;
     children;
     minimized;
+    id;
 
     constructor(name, description, date) {
         this.name = name;

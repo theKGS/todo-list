@@ -1,4 +1,4 @@
-import { renderProjects } from "./display";
+import { render } from "./display";
 import {todo} from "./items";
 import "./styles.css";
 
@@ -14,6 +14,4 @@ proj.children[1].minimized = true;
 const projectList = [];
 projectList.push(proj);
 
-const base = document.querySelector("#container");
-base.appendChild(renderProjects(projectList));
-console.log("out!");
+render(projectList);
