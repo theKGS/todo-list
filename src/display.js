@@ -10,21 +10,20 @@ function render(projectList) {
 }
 
 function projectToElement(project) {
-    const minimizeEvent = (e) => {
+    const minimizeEvent = () => {
         project.minimized = project.minimized ? false : true;
-        console.log(project.minimized);
         render(listOfProjects);
     }
 
-    const maximizeEvent = (e) => {
+    const maximizeEvent = () => {
         project.minimized = project.minimized ? false : true;
-        console.log(project.minimized);
         render(listOfProjects);
     }
 
     const base = document.createElement("div");
     base.classList.add('item');
     if (project.minimized === true) {
+        // Render it minimized
         const label = document.createElement("div");
         label.classList.add('item-name');
         label.textContent = project.name;
@@ -32,6 +31,7 @@ function projectToElement(project) {
         base.appendChild(label);
         return base;
     } else {
+        // Render it normally
         const label = document.createElement("div");
         label.classList.add('item-name');
         label.textContent = project.name;
@@ -56,7 +56,6 @@ function projectToElement(project) {
         }
 
         return base;
-
     }
 }
 
