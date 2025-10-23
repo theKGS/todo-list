@@ -79,9 +79,11 @@ function projectToElement(project) {
         render(listOfProjects);
     }
 
-    const closeEditDescriptionEvent = () => {
+    const closeEditDescriptionEvent = (e) => {
+        project.description = e.target.value;
         project.editDescription = false;
         render(listOfProjects);
+        console.log(project.description);
     }
 
     const editDateEvent = () => {
@@ -89,9 +91,11 @@ function projectToElement(project) {
         render(listOfProjects);
     }
 
-    const closeEditDateEvent = () => {
+    const closeEditDateEvent = (e) => {
         project.editDate = false;
+        project.date = new Date(e.target.value);
         render(listOfProjects);
+        console.log(project.date);
     };
 
     const base = document.createElement("div");
