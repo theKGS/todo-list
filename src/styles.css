@@ -1,6 +1,6 @@
 body {
-    background-color: black;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: rgb(169, 175, 182);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .item {
@@ -40,6 +40,14 @@ body {
     width: 20px;
     height: 20px;
     margin-right: 15px;
+}
+
+.item-delete {
+    background-image: url('/src/icons/window-maximize.svg');
+    width: 20px;
+    height: 20px;
+    margin-right: 15px;
+    border: 1px solid red;
 }
 
 .item-description {
