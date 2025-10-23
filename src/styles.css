@@ -24,7 +24,6 @@ body {
 .item-label-region {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
 }
 
@@ -32,22 +31,20 @@ body {
     background-image: url('/src/icons/window-minimize.svg');
     width: 20px;
     height: 20px;
-    margin-right: 15px;
+    margin-left: 15px;
 }
 
 .item-maximize {
     background-image: url('/src/icons/window-maximize.svg');
     width: 20px;
     height: 20px;
-    margin-right: 15px;
+    margin-left: 15px;
 }
 
 .item-delete {
-    background-image: url('/src/icons/window-maximize.svg');
+    background-image: url('/src/icons/delete.svg');
     width: 20px;
     height: 20px;
-    margin-right: 15px;
-    border: 1px solid red;
 }
 
 .item-description {

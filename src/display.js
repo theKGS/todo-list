@@ -24,7 +24,6 @@ function deleteItem(id) {
             }
 
             if (curItem.id === id) {
-                console.log('deleting');
                 curParent.children = curParent.children.filter((i) => i.id !== id);
             }
         }
