@@ -5,9 +5,9 @@ body {
 
 .item {
     border: 2px solid rgb(228, 228, 228);
-    border-radius: 15px;
+    border-radius: 0px 10px 10px 0px;
     width: 600px;
-    background-color: rgb(242, 249, 255);
+    background-color: rgb(249, 252, 255);
 }
 
 .list {
@@ -25,6 +25,8 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center;
+    background-color: rgb(169, 175, 182);
+    border-radius: 0px 10px 0px 0px;
 }
 
 .item-minimize {
