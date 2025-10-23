@@ -10,7 +10,25 @@ function render(projectList) {
 }
 
 function deleteItem(id) {
-    let stack = [];
+    listOfProjects = listOfProjects.filter((i) => i.id !== id);
+
+    let brz = [];
+    for (let i = 0; i < listOfProjects.length; i++) {
+        brz = [];
+        brz.push([[], listOfProjects[i]]);
+        while (brz.length > 0) {
+            let curItem, curParent;
+            [curParent, curItem] = brz.pop();
+            for (const item of curItem.children) {
+                brz.push([curItem, item]);
+            }
+
+            if (curItem.id === id) {
+                console.log('deleting');
+                curParent.children = curParent.children.filter((i) => i.id !== id);
+            }
+        }
+    }
 }
 
 function makeLabel(name, minimized, minEvent, maxEvent, delEvent) {
@@ -53,7 +71,7 @@ function projectToElement(project) {
     }
 
     const deleteEvent = () => {
-        project.minimized = false;
+        deleteItem(project.id);
         render(listOfProjects);
     }
 
@@ -89,7 +107,7 @@ function projectToElement(project) {
             return base;
         }
 
-        const label = makeLabel(project.name, project.minimized, minimizeEvent, maximizeEvent);
+        const label = makeLabel(project.name, project.minimized, minimizeEvent, maximizeEvent, deleteEvent);
         const description = document.createElement("div");
         description.classList.add('item-description');
         description.textContent = project.description;
