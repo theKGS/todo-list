@@ -61,3 +61,18 @@ body {
     margin-bottom: 10px;
     color: rgb(140, 140, 140);
 }
+
+.item-description-edit {
+    margin-left: 15px;
+    margin-top: 10px;
+    width: 560px;
+    height: 160px;
+    resize: vertical;
+}
+
+.item-date-edit {
+    margin-top: 10px;
+    margin-left: 15px;
+    margin-bottom: 10px;
+    width: 560px;
+}

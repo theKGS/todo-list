@@ -74,6 +74,16 @@ function projectToElement(project) {
         render(listOfProjects);
     }
 
+    const editDescriptionEvent = () => {
+        project.editDescription = true;
+        render(listOfProjects);
+    }
+
+    const closeEditDescriptionEvent = () => {
+        project.editDescription = false;
+        render(listOfProjects);
+    }
+
     const base = document.createElement("div");
     base.classList.add('item');
     if (project.minimized === true) {
@@ -83,43 +93,37 @@ function projectToElement(project) {
         return base;
     } else {
         // Render it normally
-        if (project.edit === true) {
-            const label = makeLabel(project.name, project.minimized, minimizeEvent, maximizeEvent, deleteEvent);
-            const description = document.createElement("div");
+        const label = makeLabel(project.name, project.minimized, minimizeEvent, maximizeEvent, deleteEvent);
+        base.appendChild(label);
+
+        let description = null;
+        if (project.editDescription === true) {
+            description = document.createElement("textarea");
+            description.classList.add('item-description-edit');
+            description.textContent = project.description;
+            description.addEventListener('blur', closeEditDescriptionEvent);
+        } else {
+            description = document.createElement("div");
             description.classList.add('item-description');
             description.textContent = project.description;
-            const date = document.createElement("div");
+            description.addEventListener('dblclick', editDescriptionEvent);
+        }
+        base.appendChild(description);
+
+        let date = null;
+        if (project.editDate === true) {
+            date = document.createElement("textarea");
+            date.classList.add('item-date-edit');
+            date.textContent = project.date;
+        } else {
+            date = document.createElement("div");
             date.classList.add('item-date');
             date.textContent = project.date;
-
-            const list = document.createElement("ul");
-            list.classList.add('list');
-
-            base.appendChild(label);
-            base.appendChild(description);
-            base.appendChild(date);
-            base.appendChild(list);
-
-            for (const e of project.children) {
-                list.appendChild(projectToElement(e));
-            }
-            return base;
         }
-
-        const label = makeLabel(project.name, project.minimized, minimizeEvent, maximizeEvent, deleteEvent);
-        const description = document.createElement("div");
-        description.classList.add('item-description');
-        description.textContent = project.description;
-        const date = document.createElement("div");
-        date.classList.add('item-date');
-        date.textContent = project.date;
+        base.appendChild(date);
 
         const list = document.createElement("ul");
         list.classList.add('list');
-
-        base.appendChild(label);
-        base.appendChild(description);
-        base.appendChild(date);
         base.appendChild(list);
 
         for (const e of project.children) {
