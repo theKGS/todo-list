@@ -84,6 +84,16 @@ function projectToElement(project) {
         render(listOfProjects);
     }
 
+    const editDateEvent = () => {
+        project.editDate = true;
+        render(listOfProjects);
+    }
+
+    const closeEditDateEvent = () => {
+        project.editDate = false;
+        render(listOfProjects);
+    };
+
     const base = document.createElement("div");
     base.classList.add('item');
     if (project.minimized === true) {
@@ -115,10 +125,12 @@ function projectToElement(project) {
             date = document.createElement("textarea");
             date.classList.add('item-date-edit');
             date.textContent = project.date;
+            date.addEventListener('blur', closeEditDateEvent);
         } else {
             date = document.createElement("div");
             date.classList.add('item-date');
             date.textContent = project.date;
+            date.addEventListener('dblclick', editDateEvent);
         }
         base.appendChild(date);
 
