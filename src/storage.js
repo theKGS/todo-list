@@ -26,4 +26,4 @@ function updateStorage(list) {
     }
 }
 
-export { storageAvailable, updateStorage, haveStorage};
+export { updateStorage, haveStorage};
