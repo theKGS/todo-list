@@ -1,5 +1,3 @@
-const haveStorage = storageAvailable("localStorage");
-
 // Function borrowed verbatim from mozilla documentation
 function storageAvailable(type) {
   let storage;
@@ -25,5 +23,7 @@ function updateStorage(list) {
         localStorage.setItem("todo-list", JSON.stringify(list));
     }
 }
+
+const haveStorage = storageAvailable("localStorage");
 
 export { updateStorage, haveStorage};
