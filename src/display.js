@@ -1,3 +1,5 @@
+import {todo} from "./items";
+
 let listOfProjects = null;
 
 function render(projectList) {
@@ -37,8 +39,6 @@ function makeLabel(name, minimized, minEvent, maxEvent, delEvent) {
     } else {
         labelRegion.classList.add('item-label-region-small');
     }
-
-
 
     const label = document.createElement("div");
     label.textContent = name;
@@ -102,8 +102,12 @@ function projectToElement(project) {
         project.editDate = false;
         project.date = new Date(e.target.value);
         render(listOfProjects);
-        console.log(project.date);
     };
+
+    const createNewTodo = () => {
+        project.children.push(new todo("name", "description", new Date()));
+        render(listOfProjects);
+    }
 
     const base = document.createElement("div");
     base.classList.add('item');
@@ -153,6 +157,11 @@ function projectToElement(project) {
             list.appendChild(projectToElement(e));
         }
 
+        const addTodo = document.createElement("div");
+        addTodo.classList.add('add-new-todo');
+        addTodo.addEventListener('click', createNewTodo);
+        list.appendChild(addTodo);
+
         return base;
     }
 }
@@ -164,6 +173,10 @@ function renderProjects(list) {
     for (const e of list) {
         base.appendChild(projectToElement(e));
     }
+
+    const addTodo = document.createElement("div");
+    addTodo.classList.add('add-new-project');
+    base.appendChild(addTodo);
 
     return base;
 }

@@ -26,7 +26,7 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center;
-    background-color: rgb(169, 175, 182);
+    background-color: rgb(207, 212, 218);
     border-radius: 0px 10px 0px 0px;
 }
 
@@ -88,4 +88,16 @@ body {
     margin-left: 15px;
     margin-bottom: 10px;
     width: 560px;
+}
+
+.add-new-project {
+    background-image: url('/src/icons/plus-box.svg');
+    width: 40px;
+    height: 40px;
+}
+
+.add-new-todo {
+    background-image: url('/src/icons/plus-box.svg');
+    width: 20px;
+    height: 20px;
 }
