@@ -32,7 +32,14 @@ function deleteItem(id) {
 
 function makeLabel(name, minimized, minEvent, maxEvent, delEvent) {
     const labelRegion = document.createElement("div");
-    labelRegion.classList.add('item-label-region');
+    if (!minimized) {
+        labelRegion.classList.add('item-label-region-big');
+    } else {
+        labelRegion.classList.add('item-label-region-small');
+    }
+
+
+
     const label = document.createElement("div");
     label.textContent = name;
     label.classList.add('item-name')

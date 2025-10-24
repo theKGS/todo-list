@@ -19,15 +19,25 @@ body {
     font-weight: bold;
     margin-top: 5px;
     margin-left: 15px;
+    flex:content;
 }
 
-.item-label-region {
+.item-label-region-big {
     display: flex;
     flex-direction: row;
     align-items: center;
     background-color: rgb(169, 175, 182);
     border-radius: 0px 10px 0px 0px;
 }
+
+.item-label-region-small {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: rgb(169, 175, 182);
+    border-radius: 0px 10px 10px 0px;
+}
+
 
 .item-minimize {
     background-image: url('/src/icons/window-minimize.svg');
@@ -47,6 +57,7 @@ body {
     background-image: url('/src/icons/delete.svg');
     width: 20px;
     height: 20px;
+    margin-right: 10px;
 }
 
 .item-description {
