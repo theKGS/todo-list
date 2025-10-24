@@ -1,12 +1,13 @@
 import { todo } from "./items";
+import { updateStorage } from "./storage";
 
 let listOfProjects = null;
 
 const createNewProject = () => {
     listOfProjects.push(new todo("project name", "description", new Date()));
+    updateStorage(listOfProjects);
     render(listOfProjects);
 }
-
 
 function render(projectList) {
     if (listOfProjects === null) {
@@ -74,44 +75,52 @@ function makeLabel(name, minimized, minEvent, maxEvent, delEvent) {
 function projectToElement(project) {
     const minimizeEvent = () => {
         project.minimized = true;
+        updateStorage(listOfProjects);
         render(listOfProjects);
     }
 
     const maximizeEvent = () => {
         project.minimized = false;
+        updateStorage(listOfProjects);
         render(listOfProjects);
     }
 
     const deleteEvent = () => {
         deleteItem(project.id);
+        updateStorage(listOfProjects);
         render(listOfProjects);
     }
 
     const editDescriptionEvent = () => {
         project.editDescription = true;
+        updateStorage(listOfProjects);
         render(listOfProjects);
     }
 
     const closeEditDescriptionEvent = (e) => {
         project.description = e.target.value;
         project.editDescription = false;
+        updateStorage(listOfProjects);
         render(listOfProjects);
         console.log(project.description);
     }
 
     const editDateEvent = () => {
         project.editDate = true;
+        updateStorage(listOfProjects);
         render(listOfProjects);
     }
 
     const closeEditDateEvent = (e) => {
         project.editDate = false;
         project.date = new Date(e.target.value);
+        updateStorage(listOfProjects);
         render(listOfProjects);
     };
 
     const createNewTodo = () => {
         project.children.push(new todo("name", "description", new Date()));
+        updateStorage(listOfProjects);
         render(listOfProjects);
     }
 
