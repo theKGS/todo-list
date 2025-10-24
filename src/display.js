@@ -1,6 +1,12 @@
-import {todo} from "./items";
+import { todo } from "./items";
 
 let listOfProjects = null;
+
+const createNewProject = () => {
+    listOfProjects.push(new todo("project name", "description", new Date()));
+    render(listOfProjects);
+}
+
 
 function render(projectList) {
     if (listOfProjects === null) {
@@ -157,10 +163,12 @@ function projectToElement(project) {
             list.appendChild(projectToElement(e));
         }
 
-        const addTodo = document.createElement("div");
-        addTodo.classList.add('add-new-todo');
-        addTodo.addEventListener('click', createNewTodo);
-        list.appendChild(addTodo);
+        if (project.minimized === false) {
+            const addTodo = document.createElement("div");
+            addTodo.classList.add('add-new-todo');
+            addTodo.addEventListener('click', createNewTodo);
+            list.appendChild(addTodo);
+        }
 
         return base;
     }
@@ -176,6 +184,7 @@ function renderProjects(list) {
 
     const addTodo = document.createElement("div");
     addTodo.classList.add('add-new-project');
+    addTodo.addEventListener('click', createNewProject);
     base.appendChild(addTodo);
 
     return base;
