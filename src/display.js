@@ -95,38 +95,6 @@ function makeLabelMaximized(project, minEvent, delEvent, edEvent, stopEdEvent) {
     return labelRegion;
 }
 
-function makeLabel(name, minimized, minEvent, maxEvent, delEvent) {
-    const labelRegion = document.createElement("div");
-    if (!minimized) {
-        labelRegion.classList.add('item-label-region-big');
-    } else {
-        labelRegion.classList.add('item-label-region-small');
-    }
-
-    const label = document.createElement("div");
-    label.textContent = name;
-    label.classList.add('item-name')
-    labelRegion.appendChild(label);
-
-    if (!minimized) {
-        const minButton = document.createElement("div");
-        minButton.classList.add('item-minimize');
-        minButton.addEventListener('click', minEvent);
-        labelRegion.appendChild(minButton);
-    } else {
-        const maxButton = document.createElement("div");
-        maxButton.classList.add('item-maximize');
-        maxButton.addEventListener('click', maxEvent);
-        labelRegion.appendChild(maxButton);
-    }
-
-    const delButton = document.createElement("div");
-    delButton.classList.add('item-delete');
-    delButton.addEventListener('click', delEvent);
-    labelRegion.appendChild(delButton);
-
-    return labelRegion;
-}
 
 function focusComponent(id) {
     const createdElement = document.querySelector(`#a${id}`);
