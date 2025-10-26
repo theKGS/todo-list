@@ -32,13 +32,6 @@ body {
     margin: 0px;
 }
 
-.item-name {
-    font-weight: bold;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-left: 15px;
-    flex:content;
-}
 
 .item-label-region-big {
     display: flex;
@@ -81,18 +74,28 @@ body {
     cursor: default;
 }
 
+
+
+.item-name {
+    font-weight: bold;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 15px;
+    flex: content;
+}
+
+.item-name-edit {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 15px;
+    flex: content;
+}
+
+
 .item-description {
     font-style: italic;
     margin-left: 15px;
     margin-top: 10px;
-    cursor: default;
-}
-
-.item-date {
-    margin-top: 10px;
-    margin-left: 15px;
-    margin-bottom: 10px;
-    color: rgb(140, 140, 140);
     cursor: default;
 }
 
@@ -105,6 +108,15 @@ body {
     cursor: default;
 }
 
+
+.item-date {
+    margin-top: 10px;
+    margin-left: 15px;
+    margin-bottom: 10px;
+    color: rgb(140, 140, 140);
+    cursor: default;
+}
+
 .item-date-edit {
     margin-top: 10px;
     margin-left: 15px;
@@ -112,6 +124,7 @@ body {
     width: 560px;
     cursor: default;
 }
+
 
 .add-new-project {
     background-image: url('/src/icons/plus-box.svg');

@@ -39,6 +39,62 @@ function deleteItem(id) {
     }
 }
 
+
+function makeLabelMinimized(project, maxEvent, delEvent, edEvent, stopEdEvent) {
+    const labelRegion = document.createElement("div");
+    labelRegion.classList.add('item-label-region-small');
+
+    const label = document.createElement("div");
+    label.textContent = project.name;
+    label.classList.add('item-name')
+    labelRegion.appendChild(label);
+    label.addEventListener('dblclick', edEvent);
+
+    const maxButton = document.createElement("div");
+    maxButton.classList.add('item-maximize');
+    maxButton.addEventListener('click', maxEvent);
+    labelRegion.appendChild(maxButton);
+
+    const delButton = document.createElement("div");
+    delButton.classList.add('item-delete');
+    delButton.addEventListener('click', delEvent);
+    labelRegion.appendChild(delButton);
+
+    return labelRegion;
+}
+
+function makeLabelMaximized(project, minEvent, delEvent, edEvent, stopEdEvent) {
+    const labelRegion = document.createElement("div");
+    labelRegion.classList.add('item-label-region-big');
+
+    if (!project.editName) {
+        const label = document.createElement("div");
+        label.textContent = project.name;
+        label.classList.add('item-name')
+        label.addEventListener('dblclick', edEvent);
+        labelRegion.appendChild(label)
+    } else {
+        const textarea = document.createElement("textarea");
+        textarea.textContent = project.name;
+        textarea.classList.add('item-name-edit')
+        textarea.addEventListener('blur', stopEdEvent);
+        textarea.id = `a${project.id}`;
+        labelRegion.appendChild(textarea);
+    }
+
+    const minButton = document.createElement("div");
+    minButton.classList.add('item-minimize');
+    minButton.addEventListener('click', minEvent);
+    labelRegion.appendChild(minButton);
+
+    const delButton = document.createElement("div");
+    delButton.classList.add('item-delete');
+    delButton.addEventListener('click', delEvent);
+    labelRegion.appendChild(delButton);
+
+    return labelRegion;
+}
+
 function makeLabel(name, minimized, minEvent, maxEvent, delEvent) {
     const labelRegion = document.createElement("div");
     if (!minimized) {
@@ -124,6 +180,21 @@ function projectToElement(project) {
         render(listOfProjects);
     };
 
+    const editNameEvent = (e) => {
+        project.editName = true;
+        project.minimized = false;
+        updateStorage(listOfProjects);
+        render(listOfProjects);
+        focusComponent(project.id);
+    }
+
+    const closeEditNameEvent = (e) => {
+        project.name = e.target.value;
+        project.editName = false;
+        updateStorage(listOfProjects);
+        render(listOfProjects);
+    }
+
     const createNewTodo = () => {
         project.children.push(new todo("name", "description", new Date()));
         updateStorage(listOfProjects);
@@ -146,14 +217,14 @@ function projectToElement(project) {
 
     base.draggable = 'true';
 
-    if (project.minimized === true) {
+    if (project.minimized) {
         // Render it minimized
-        const label = makeLabel(project.name, project.minimized, minimizeEvent, maximizeEvent, deleteEvent);
+        const label = makeLabelMinimized(project, maximizeEvent, deleteEvent, editNameEvent, closeEditNameEvent);
         base.appendChild(label);
         return base;
     } else {
         // Render it normally
-        const label = makeLabel(project.name, project.minimized, minimizeEvent, maximizeEvent, deleteEvent);
+        const label = makeLabelMaximized(project, minimizeEvent, deleteEvent, editNameEvent, closeEditNameEvent);
         base.appendChild(label);
 
         let description = null;
