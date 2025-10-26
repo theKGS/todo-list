@@ -72,6 +72,11 @@ function makeLabel(name, minimized, minEvent, maxEvent, delEvent) {
     return labelRegion;
 }
 
+function focusComponent(id) {
+    const createdElement = document.querySelector(`#a${id}`);
+    createdElement.focus();
+}
+
 function projectToElement(project) {
     const minimizeEvent = () => {
         project.minimized = true;
@@ -95,6 +100,7 @@ function projectToElement(project) {
         project.editDescription = true;
         updateStorage(listOfProjects);
         render(listOfProjects);
+        focusComponent(project.id);
     }
 
     const closeEditDescriptionEvent = (e) => {
@@ -102,13 +108,13 @@ function projectToElement(project) {
         project.editDescription = false;
         updateStorage(listOfProjects);
         render(listOfProjects);
-        console.log(project.description);
     }
 
     const editDateEvent = () => {
         project.editDate = true;
         updateStorage(listOfProjects);
         render(listOfProjects);
+        focusComponent(project.id);
     }
 
     const closeEditDateEvent = (e) => {
@@ -124,8 +130,22 @@ function projectToElement(project) {
         render(listOfProjects);
     }
 
+    const dragStartEvent = () => {
+        console.log('drag start');
+    }
+
+    const dragEndEvent = () => {
+        console.log('drag end');
+    }
+
     const base = document.createElement("div");
     base.classList.add('item');
+
+    base.addEventListener('dragstart', dragStartEvent);
+    base.addEventListener('dragsend', dragEndEvent);
+
+    base.draggable = 'true';
+
     if (project.minimized === true) {
         // Render it minimized
         const label = makeLabel(project.name, project.minimized, minimizeEvent, maximizeEvent, deleteEvent);
@@ -142,6 +162,7 @@ function projectToElement(project) {
             description.classList.add('item-description-edit');
             description.textContent = project.description;
             description.addEventListener('blur', closeEditDescriptionEvent);
+            description.id = `a${project.id}`;
         } else {
             description = document.createElement("div");
             description.classList.add('item-description');
@@ -156,6 +177,7 @@ function projectToElement(project) {
             date.classList.add('item-date-edit');
             date.textContent = project.date;
             date.addEventListener('blur', closeEditDateEvent);
+            date.id = `a${project.id}`;
         } else {
             date = document.createElement("div");
             date.classList.add('item-date');

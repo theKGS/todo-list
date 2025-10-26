@@ -10,6 +10,23 @@ body {
     background-color: rgb(249, 252, 255);
 }
 
+
+
+.item {
+    cursor: grab;
+}
+
+.item > textarea {
+    cursor:default;
+}
+
+.item > img {
+    cursor: default;
+}
+
+
+
+
 .list {
     list-style: none;
     margin: 0px;
@@ -17,7 +34,8 @@ body {
 
 .item-name {
     font-weight: bold;
-    margin-top: 5px;
+    margin-top: auto;
+    margin-bottom: auto;
     margin-left: 15px;
     flex:content;
 }
@@ -44,6 +62,7 @@ body {
     width: 20px;
     height: 20px;
     margin-left: 15px;
+    cursor: default;
 }
 
 .item-maximize {
@@ -51,6 +70,7 @@ body {
     width: 20px;
     height: 20px;
     margin-left: 15px;
+    cursor: default;
 }
 
 .item-delete {
@@ -58,13 +78,14 @@ body {
     width: 20px;
     height: 20px;
     margin-right: 10px;
+    cursor: default;
 }
 
 .item-description {
     font-style: italic;
     margin-left: 15px;
     margin-top: 10px;
-    cursor:default;
+    cursor: default;
 }
 
 .item-date {
@@ -72,7 +93,7 @@ body {
     margin-left: 15px;
     margin-bottom: 10px;
     color: rgb(140, 140, 140);
-    cursor:default;
+    cursor: default;
 }
 
 .item-description-edit {
@@ -81,6 +102,7 @@ body {
     width: 560px;
     height: 160px;
     resize: vertical;
+    cursor: default;
 }
 
 .item-date-edit {
@@ -88,16 +110,19 @@ body {
     margin-left: 15px;
     margin-bottom: 10px;
     width: 560px;
+    cursor: default;
 }
 
 .add-new-project {
     background-image: url('/src/icons/plus-box.svg');
     width: 40px;
     height: 40px;
+    cursor: default;
 }
 
 .add-new-todo {
     background-image: url('/src/icons/plus-box.svg');
     width: 20px;
     height: 20px;
+    cursor: default;
 }
