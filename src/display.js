@@ -21,15 +21,15 @@ function render(projectList) {
 function deleteItem(id) {
     listOfProjects = listOfProjects.filter((i) => i.id !== id);
 
-    let brz = [];
+    let itemQueue = [];
     for (let i = 0; i < listOfProjects.length; i++) {
-        brz = [];
-        brz.push([[], listOfProjects[i]]);
-        while (brz.length > 0) {
+        itemQueue = [];
+        itemQueue.push([[], listOfProjects[i]]);
+        while (itemQueue.length > 0) {
             let curItem, curParent;
-            [curParent, curItem] = brz.pop();
+            [curParent, curItem] = itemQueue.pop();
             for (const item of curItem.children) {
-                brz.push([curItem, item]);
+                itemQueue.push([curItem, item]);
             }
 
             if (curItem.id === id) {
@@ -38,6 +38,36 @@ function deleteItem(id) {
         }
     }
 }
+
+function getParentId(id) {
+    for (const item of listOfProjects) {
+        if (item.id === id) {
+            return null
+        }
+    }
+
+    let itemQueue = [];
+    for (let i = 0; i < listOfProjects.length; i++) {
+        itemQueue = [];
+        itemQueue.push([[], listOfProjects[i]]);
+        while (itemQueue.length > 0) {
+            let curItem, curParent;
+            [curParent, curItem] = itemQueue.pop();
+            for (const item of curItem.children) {
+                itemQueue.push([curItem, item]);
+            }
+
+            if (curItem.id === id) {
+                return curParent.id;
+            }
+        }
+    }
+}
+
+
+
+
+
 
 
 function makeLabelMinimized(project, maxEvent, delEvent, edEvent, stopEdEvent) {
@@ -78,7 +108,7 @@ function makeLabelMaximized(project, minEvent, delEvent, edEvent, stopEdEvent) {
         textarea.textContent = project.name;
         textarea.classList.add('item-name-edit')
         textarea.addEventListener('blur', stopEdEvent);
-        textarea.id = `a${project.id}`;
+        textarea.id = `name-${project.id}`;
         labelRegion.appendChild(textarea);
     }
 
@@ -96,8 +126,8 @@ function makeLabelMaximized(project, minEvent, delEvent, edEvent, stopEdEvent) {
 }
 
 
-function focusComponent(id) {
-    const createdElement = document.querySelector(`#a${id}`);
+function focusComponent(prefix, id) {
+    const createdElement = document.querySelector(`#${prefix}-${id}`);
     createdElement.focus();
 }
 
@@ -124,7 +154,8 @@ function projectToElement(project) {
         project.editDescription = true;
         updateStorage(listOfProjects);
         render(listOfProjects);
-        focusComponent(project.id);
+        focusComponent('description', project.id);
+        console.log(getParentId(project.id));
     }
 
     const closeEditDescriptionEvent = (e) => {
@@ -138,7 +169,7 @@ function projectToElement(project) {
         project.editDate = true;
         updateStorage(listOfProjects);
         render(listOfProjects);
-        focusComponent(project.id);
+        focusComponent('date', project.id);
     }
 
     const closeEditDateEvent = (e) => {
@@ -153,7 +184,7 @@ function projectToElement(project) {
         project.minimized = false;
         updateStorage(listOfProjects);
         render(listOfProjects);
-        focusComponent(project.id);
+        focusComponent('name', project.id);
     }
 
     const closeEditNameEvent = (e) => {
@@ -169,20 +200,30 @@ function projectToElement(project) {
         render(listOfProjects);
     }
 
-    const dragStartEvent = () => {
+    const dragStartEvent = (e) => {
         console.log('drag start');
+        e.dataTransfer.effectAllowed = "move";
     }
 
-    const dragEndEvent = () => {
+    const dragEndEvent = (e) => {
         console.log('drag end');
+    }
+
+    const dragOverEvent = (e) => {
+        console.log('drag over');
+        e.preventDefault();
+    }
+
+    const dropEvent = (e) => {
+        console.log('drop');
     }
 
     const base = document.createElement("div");
     base.classList.add('item');
-
     base.addEventListener('dragstart', dragStartEvent);
     base.addEventListener('dragsend', dragEndEvent);
-
+    base.addEventListener('dragover', dragOverEvent);
+    base.addEventListener('drop', dropEvent);
     base.draggable = 'true';
 
     if (project.minimized) {
@@ -201,7 +242,7 @@ function projectToElement(project) {
             description.classList.add('item-description-edit');
             description.textContent = project.description;
             description.addEventListener('blur', closeEditDescriptionEvent);
-            description.id = `a${project.id}`;
+            description.id = `description-${project.id}`;
         } else {
             description = document.createElement("div");
             description.classList.add('item-description');
@@ -216,7 +257,7 @@ function projectToElement(project) {
             date.classList.add('item-date-edit');
             date.textContent = project.date;
             date.addEventListener('blur', closeEditDateEvent);
-            date.id = `a${project.id}`;
+            date.id = `date-${project.id}`;
         } else {
             date = document.createElement("div");
             date.classList.add('item-date');
