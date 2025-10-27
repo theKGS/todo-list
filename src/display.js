@@ -250,6 +250,12 @@ function projectToElement(project) {
         let curId = e.currentTarget.dataset.id;
         const movedItem = JSON.parse(e.dataTransfer.getData("text/plain"));
         const idToRemove = movedItem.id;
+
+        if (isParentOf(getItem(idToRemove), curId)) {
+            console.log('Attempted to insert node into itself');
+            return;
+        }
+
         deleteItem(idToRemove);
 
         if (e.currentTarget instanceof HTMLUListElement) {
