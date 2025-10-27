@@ -229,22 +229,20 @@ function projectToElement(project) {
 
     const dragStartEvent = (e) => {
         e.stopPropagation();
-        console.log('drag start');
         let id = e.currentTarget.dataset.id;
         e.dataTransfer.setData("text/plain", JSON.stringify(getItem(id)));
         e.dataTransfer.effectAllowed = "move";
     }
 
     const dragEndEvent = (e) => {
-        console.log('drag end');
     }
 
     const dragOverEvent = (e) => {
         e.stopPropagation();
-        console.log('drag over');
         e.preventDefault();
     }
 
+    // Item elements and the unordered list elements subscribe to this
     const dropEvent = (e) => {
         e.stopPropagation();
         let curId = e.currentTarget.dataset.id;
@@ -252,7 +250,6 @@ function projectToElement(project) {
         const idToRemove = movedItem.id;
 
         if (isParentOf(getItem(idToRemove), curId)) {
-            console.log('Attempted to insert node into itself');
             return;
         }
 
@@ -275,9 +272,6 @@ function projectToElement(project) {
             }
             render();
         }
-
-        console.log(e.currentTarget);
-        console.log('drop');
     }
 
     const testClickEvent = (e) => {
