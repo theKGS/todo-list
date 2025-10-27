@@ -248,25 +248,24 @@ function projectToElement(project) {
     const dropEvent = (e) => {
         e.stopPropagation();
         let curId = e.currentTarget.dataset.id;
-        //console.log(curId);
-        console.log(e.dataTransfer.getData("text/plain"));
+        const movedItem = JSON.parse(e.dataTransfer.getData("text/plain"));
+        const idToRemove = movedItem.id;
+        deleteItem(idToRemove);
 
         if (e.currentTarget instanceof HTMLUListElement) {
             const container = getItem(curId);
-            const child = JSON.parse(e.dataTransfer.getData("text/plain"));
-            container.children.push(child);
+            container.children.push(movedItem);
             render();
         }
 
         if (e.currentTarget instanceof HTMLDivElement) {
             const parentId = getParentId(curId);
-            const child = JSON.parse(e.dataTransfer.getData("text/plain"));
 
             if (parentId === null) {
-                listOfProjects.push(child);
+                listOfProjects.push(movedItem);
             } else {
                 const container = getItem(parentId);
-                container.children.push(child);
+                container.children.push(movedItem);
             }
             render();
         }
