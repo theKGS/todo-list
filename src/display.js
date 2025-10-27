@@ -39,6 +39,25 @@ function deleteItem(id) {
     }
 }
 
+function getItem(id) {
+    let itemQueue = [];
+    for (let i = 0; i < listOfProjects.length; i++) {
+        itemQueue = [];
+        itemQueue.push(listOfProjects[i]);
+        while (itemQueue.length > 0) {
+            let curItem;
+            curItem = itemQueue.pop();
+            for (const item of curItem.children) {
+                itemQueue.push(item);
+            }
+
+            if (curItem.id === id) {
+                return curItem;
+            }
+        }
+    }
+}
+
 function getParentId(id) {
     for (const item of listOfProjects) {
         if (item.id === id) {
@@ -64,11 +83,20 @@ function getParentId(id) {
     }
 }
 
+function isParentOf(parentItem, childID) {
+    let itemQueue = [];
+    itemQueue.push(parentItem);
+    while (itemQueue.length > 0) {
+        let curItem = itemQueue.pop();
+        for (const item of curItem.children) {
+            itemQueue.push(item);
+        }
 
-
-
-
-
+        if (curItem.id === childID) {
+            return true;
+        }
+    }
+}
 
 function makeLabelMinimized(project, maxEvent, delEvent, edEvent, stopEdEvent) {
     const labelRegion = document.createElement("div");
@@ -155,7 +183,6 @@ function projectToElement(project) {
         updateStorage(listOfProjects);
         render(listOfProjects);
         focusComponent('description', project.id);
-        console.log(getParentId(project.id));
     }
 
     const closeEditDescriptionEvent = (e) => {
@@ -201,7 +228,10 @@ function projectToElement(project) {
     }
 
     const dragStartEvent = (e) => {
+        e.stopPropagation();
         console.log('drag start');
+        let id = e.currentTarget.dataset.id;
+        e.dataTransfer.setData("text/plain", JSON.stringify(getItem(id)));
         e.dataTransfer.effectAllowed = "move";
     }
 
@@ -210,12 +240,45 @@ function projectToElement(project) {
     }
 
     const dragOverEvent = (e) => {
+        e.stopPropagation();
         console.log('drag over');
         e.preventDefault();
     }
 
     const dropEvent = (e) => {
+        e.stopPropagation();
+        let curId = e.currentTarget.dataset.id;
+        //console.log(curId);
+        console.log(e.dataTransfer.getData("text/plain"));
+
+        if (e.currentTarget instanceof HTMLUListElement) {
+            const container = getItem(curId);
+            const child = JSON.parse(e.dataTransfer.getData("text/plain"));
+            container.children.push(child);
+            render();
+        }
+
+        if (e.currentTarget instanceof HTMLDivElement) {
+            const parentId = getParentId(curId);
+            const child = JSON.parse(e.dataTransfer.getData("text/plain"));
+
+            if (parentId === null) {
+                listOfProjects.push(child);
+            } else {
+                const container = getItem(parentId);
+                container.children.push(child);
+            }
+            render();
+        }
+
+        console.log(e.currentTarget);
         console.log('drop');
+    }
+
+    const testClickEvent = (e) => {
+        e.stopPropagation();
+        let curId = e.currentTarget.dataset.id;
+        console.log(curId);
     }
 
     const base = document.createElement("div");
@@ -224,7 +287,9 @@ function projectToElement(project) {
     base.addEventListener('dragsend', dragEndEvent);
     base.addEventListener('dragover', dragOverEvent);
     base.addEventListener('drop', dropEvent);
+    base.addEventListener('click', testClickEvent);
     base.draggable = 'true';
+    base.dataset.id = project.id;
 
     if (project.minimized) {
         // Render it minimized
@@ -268,6 +333,8 @@ function projectToElement(project) {
 
         const list = document.createElement("ul");
         list.classList.add('list');
+        list.dataset.id = project.id;
+        list.addEventListener('drop', dropEvent);
         base.appendChild(list);
 
         for (const e of project.children) {
